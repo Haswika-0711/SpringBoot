@@ -7,10 +7,10 @@ public class MyWorld {
 	public static void main(String[] args) {
 	
 		Employee e1=new Employee();
-		System.out.println(e1);
+		System.out.println(e1.toString());
 		
 		Employee e2=new Employee(101,"Eshan",10000,new Address("Pune","MH","504","304"));
-		System.out.println(e1);
+		System.out.println(e2.toString());
 		
 		ArrayList<Employee> eList=new ArrayList<Employee>();
 		eList.add(new Employee(102,"Tannu",10000,new Address("Pune","MH","504","54")));
