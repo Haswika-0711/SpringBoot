@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"> 
+    
+    <bean id="add1" class="com.training.org.Address">
+	    <constructor-arg value="101" type="String"></constructor-arg>
+	    <constructor-arg value="TS" type="String"></constructor-arg>
+	    <constructor-arg value="11" type="String"></constructor-arg>
+	    <constructor-arg value="62" type="String"></constructor-arg>
+    </bean> 
+ 
+    
+    <bean id="project1" class="com.training.org.Project">
+    	<constructor-arg value="1" type="String"></constructor-arg>
+    	<constructor-arg value="sample" type="String"></constructor-arg>
+    	<constructor-arg value="react" type="String"></constructor-arg>
+    </bean>
+    
+    <bean id="project2" class="com.training.org.Project">
+    	<constructor-arg value="2" type="String"></constructor-arg>
+    	<constructor-arg value="TSR" type="String"></constructor-arg>
+    	<constructor-arg value="ML" type="String"></constructor-arg>
+    </bean>
+    
+    <bean id="project3" class="com.training.org.Project">
+    	<constructor-arg value="3" type="String"></constructor-arg>
+    	<constructor-arg value="wid" type="String"></constructor-arg>
+    	<constructor-arg value="dkd" type="String"></constructor-arg>
+    </bean>
+    
+   <bean id="empBean" class="com.training.org.Employee">
+	    <constructor-arg value="12" type="int"></constructor-arg>
+	    <constructor-arg value="haswika" type="String"></constructor-arg>
+	    <constructor-arg value="60000" type="double"></constructor-arg>
+	    <constructor-arg ref="add1"></constructor-arg>
+	    <constructor-arg>
+	    <list>
+	    	<value>Java</value>
+			<value>C++</value>
+			<value>React</value>
+	    </list>
+	    </constructor-arg>
+	    <constructor-arg>
+	    <list>
+	    	<ref bean="project1"/>
+	    	<ref bean="project2"/>
+	    	<ref bean="project3"/>
+	    </list>
+	    </constructor-arg>
+    </bean>  
+
+</beans> 
