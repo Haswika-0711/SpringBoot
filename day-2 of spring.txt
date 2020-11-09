@@ -1,0 +1,651 @@
+﻿package com.training.org;
+
+public class Qualification {
+	private String stream;
+	private String year;
+	private double percentage;
+	
+	public Qualification() {
+		System.out.println("Default constructor of Qualification is called");
+	}
+	public Qualification(String stream, String year, double percentage) {
+		super();
+		this.stream = stream;
+		this.year = year;
+		this.percentage = percentage;
+	}
+	
+	public String getStream() {
+		return stream;
+	}
+	public void setStream(String stream) {
+		this.stream = stream;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
+	public double getPercentage() {
+		return percentage;
+	}
+	public void setPercentage(double percentage) {
+		this.percentage = percentage;
+	}
+	@Override
+	public String toString() {
+		return "Qualification [stream=" + stream + ", year=" + year + ", percentage=" + percentage + "]";
+	}
+	
+	
+	
+	
+	
+
+}
+
+
+
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   <context:annotation-config/>
+   
+   <!-- Definition for student bean -->
+   <bean id="student" class="com.training.org.Student"></bean>
+   
+   <bean id="qualification" class="com.training.org.Qualification"></bean>
+   
+</beans>
+
+
+
+
+
+package com.training.org;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+public class MainFile {
+	public static void main(String[] args) {
+		
+		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+		Student s1=(Student)context.getBean("student");
+		System.out.println(s1);
+
+	}
+
+}
+
+
+
+
+
+
+
+package com.training.org;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class Student {
+	private Qualification qualification;
+
+	public Student() {
+		System.out.println("Default constructor of Student is called");
+	}
+	
+	public Student(Qualification qualification) {
+		super();
+		this.qualification = qualification;
+	}
+
+	public Qualification getQualification() {
+		return qualification;
+	}
+
+	@Autowired
+	public void setQualification(Qualification qualification) {
+		this.qualification = qualification;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [qualification=" + qualification + "]";
+	}
+
+	
+}
+
+
+
+
+
+
+
+package com.training.org;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+public class MainFile {
+	public static void main(String[] args) {
+		
+		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+		Student s1=(Student)context.getBean("student");
+		System.out.println(s1);
+	}
+
+}
+
+
+
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   <context:annotation-config/>
+   
+   <!-- Definition for student bean -->
+   <bean id="student" class="com.training.org.Student">
+      <property name="name"  value="Shital" />
+
+      <!-- try without passing age and check the result -->
+      <property name="age"  value="11"/>
+   </bean>
+   
+</beans>
+
+
+
+
+
+
+
+package com.training.org;
+
+import org.springframework.beans.factory.annotation.Required;
+
+public class Student {
+	private String name;
+	private int age;
+	public String getName() {
+		return name;
+	}
+	
+	@Required
+	public void setName(String name) {
+		System.out.println("setName is called");
+		this.name = name;
+	}
+	public int getAge() {
+		return age;
+	}
+	
+	@Required
+	public void setAge(int age) {
+		System.out.println("setAge is called");
+		this.age = age;
+	}
+
+	@Override
+	public String toString() {
+		return "Student [name=" + name + ", age=" + age + "]";
+	}
+}
+
+
+
+The @Required annotation applies to bean property setter methods and it indicates that the affected bean property must be populated in XML configuration file at configuration time otherwise the container throws a BeanInitializationException exception. Below is an example to show the use of @Required annotation.
+
+
+
+
+
+
+1	@Required
+The @Required annotation applies to bean property setter methods.
+
+2	@Autowired
+The @Autowired annotation can apply to bean property setter methods, non-setter methods, constructor and properties.
+
+3	@Qualifier
+The @Qualifier annotation along with @Autowired can be used to remove the confusion by specifiying which exact bean will be wired.
+
+4	JSR-250 Annotations
+Spring supports JSR-250 based annotations which include @Resource, @PostConstruct and @PreDestroy annotations.
+
+
+
+
+
+
+Once <context:annotation-config/> is configured, you can start annotating your code to indicate that Spring should automatically wire values into properties, methods, and constructors. Let us see few important annotations to understand how they work:
+
+        
+        
+        
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   <context:annotation-config/>
+   <!-- bean definitions go here -->
+</beans>
+
+
+
+
+
+Starting from Spring 2.5 it became possible to configure the dependency injection using annotations. So instead of using XML to describe a bean wiring, you can move the bean configuration into the component class itself by using annotations on the relevant class, method, or field declaration.
+Annotation injection is performed before XML injection, thus the latter configuration will override the former for properties wired through both approaches.
+Annotation wiring is not turned on in the Spring container by default. So, before we can use annotation-based wiring, we will need to enable it in our Spring configuration file. So consider to have following configuration file in case you want to use any annotation in your Spring application
+
+
+
+
+https://gofile.io/d/PF2Y8W
+
+
+    
+    
+    
+package com.training.org;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+public class MainFile {
+	public static void main(String[] args) {
+		
+//		Resource resource=new ClassPathResource("applicationContext.xml");
+//		BeanFactory factory=new XmlBeanFactory(resource);
+
+		
+		ApplicationContext context=new ClassPathXmlApplicationContext("applicationContext.xml");
+		
+//		B e1=(B)context.getBean("aBean");
+//		System.out.println(e1);
+		
+		
+		A a=context.getBean("aBean",A.class);
+		a.display();
+		
+		
+	}
+
+}
+
+
+
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+   <bean id="b" class="com.training.org.B"></bean>
+   <bean id="aBean" class="com.training.org.A" autowire="byName"></bean>
+	
+	
+</beans> 
+
+
+
+
+
+package com.training.org;
+
+
+public class B {
+	public B() {
+		System.out.println("B constructor is called");
+	}
+
+	public void show() {
+		System.out.println("show method from B class");
+	}
+}
+
+
+
+
+
+
+package com.training.org;
+
+public class A {
+	
+	private B b;
+	
+	public A() {
+	
+		System.out.println("A is called");
+	}
+
+	public B getB() {
+		return b;
+	}
+
+	public void setB(B b) {
+		this.b = b;
+	}
+	
+	
+	public void print() {
+		System.out.println("print from A class");
+	}
+	
+	public void display() {
+		System.out.println("display is called");
+		b.show();
+		print();
+	}
+	
+}
+
+
+
+
+
+
+Autowiring feature of spring framework enables you to inject the object dependency implicitly. It internally uses setter or constructor injection.
+
+Autowiring can't be used to inject primitive and string values. It works with reference only.
+
+Advantage of Autowiring
+It requires the less code because we don't need to write the code to inject the dependency explicitly.
+
+Disadvantage of Autowiring
+
+No control of programmer.
+It can't be used for primitive and string values.
+
+
+
+
+
+
+
+
+We can inject collection values by setter method in spring framework. There can be used three elements inside the property element.
+It can be:
+list
+set
+map
+Each collection can have string based and non-string based values.
+
+
+
+
+
+
+We can inject the dependency by constructor. The <constructor-arg>subelement of <bean> is used for constructor injection. Here we are going to inject
+
+primitive and String-based values
+Dependent object (contained object)
+Collection values etc.
+
+
+
+
+
+
+
+The ClassPathXmlApplicationContext class is the implementation class of ApplicationContext interface. We need to instantiate the ClassPathXmlApplicationContext class to use the ApplicationContext as given below:
+
+ApplicationContext context =   
+    new ClassPathXmlApplicationContext("applicationContext.xml");  
+
+The constructor of ClassPathXmlApplicationContext class receives string, so we can pass the name of the xml file to create the instance of ApplicationContext.
+
+
+
+
+
+
+
+
+The XmlBeanFactory is the implementation class for the BeanFactory interface. To use the BeanFactory, we need to create the instance of XmlBeanFactory class as given below:
+
+Resource resource=new ClassPathResource("applicationContext.xml");  
+BeanFactory factory=new XmlBeanFactory(resource);  
+
+The constructor of XmlBeanFactory class receives the Resource object so we need to pass the resource object to create the object of BeanFactory.
+
+
+
+
+
+
+
+
+The org.springframework.beans.factory.BeanFactory and the org.springframework.context.ApplicationContext interfaces acts as the IoC container. The ApplicationContext interface is built on top of the BeanFactory interface. It adds some extra functionality than BeanFactory such as simple integration with Spring's AOP, message resource handling (for I18N), event propagation, application layer specific context (e.g. WebApplicationContext) for web application. So it is better to use ApplicationContext than BeanFactory.
+
+
+
+
+
+
+The IoC container is responsible to instantiate, configure and assemble the objects. The IoC container gets informations from the XML file and works accordingly. The main tasks performed by IoC container are:
+to instantiate the application class
+to configure the object
+to assemble the dependencies between the objects
+There are two types of IoC containers. They are:
+BeanFactory
+ApplicationContext
+
+
+
+
+The bean class is the actual implementation of the bean being described by the BeanFactory. 
+Bean examples – DAO, DataSource, Transaction Manager, Persistence Managers, Service objects, etc
+Spring config contains implementation classes while your code should program to interfaces.
+Bean behaviors include:
+Singleton or prototype
+Autowiring
+Initialization and destruction methods 
+init-method
+destroy-method
+Beans can be configured to have property values set.  
+Can read simple values, collections, maps, references to other beans, etc.
+
+
+
+
+
+
+package com.training.org;
+
+public class Employee {
+	
+	private Integer empId;
+	private String name;
+	private double salary;
+
+	public Employee() {
+		System.out.println("Default constructor of Employee is called");
+		empId=0;
+		name="";
+		salary=0;
+	}
+	
+	public Employee(Integer empId, String name, double salary) {
+		System.out.println("Parameterised constructor of Employee is called");
+		this.empId = empId;
+		this.name = name;
+		this.salary = salary;
+	}
+	
+	public Integer getEmpId() {
+		return empId;
+	}
+	
+	public void setEmpId(Integer empId) {
+		this.empId = empId;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	
+	public double getSalary() {
+		return salary;
+	}
+	
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
+	
+	@Override
+	public String toString() {
+		return "Employee [empId=" + empId + ", name=" + name + ", salary=" + salary + "]";
+	}
+
+}
+
+
+
+
+
+
+
+package com.training.org;
+
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+
+public class MainFile {
+	public static void main(String[] args) {
+		
+		Resource resource=new ClassPathResource("applicationContext.xml");
+		BeanFactory factory=new XmlBeanFactory(resource);
+		
+		
+		Employee e1=(Employee)factory.getBean("empBean");
+		System.out.println(e1);
+		
+		
+	}
+
+}
+
+
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+               
+	<bean id="empBean" class="com.training.org.Employee">
+		<property name="empId" value="101"></property>
+		<property name="name" value="Eshan"></property>
+		<property name="salary" value="200000"></property>
+	</bean>
+	
+</beans> 
+
+
+
+
+
+
+Create Java Project
+Load the spring jar files
+Create the class
+Create the xml file to provide the values
+Create the test class
+Run the test class
+
+
+
+
+
+
+
+Test
+This layer provides support of testing with JUnit and TestNG.
+
+Spring Core Container
+The Spring Core container contains core, beans, context and expression language (EL) modules.
+
+Core and Beans
+These modules provide IOC and Dependency Injection features.
+
+Context
+This module supports internationalization (I18N), EJB, JMS, Basic Remoting.
+
+Expression Language
+It is an extension to the EL defined in JSP. It provides support to setting and getting property values, method invocation, accessing collections and indexers, named variables, logical and arithmetic operators, retrieval of objects by name etc.
+
+AOP, Aspects and Instrumentation
+These modules support aspect oriented programming implementation where you can use Advices, Pointcuts etc. to decouple the code.
+The aspects module provides support to integration with AspectJ.
+The instrumentation module provides support to class instrumentation and classloader implementations.
+
+Data Access / Integration
+This group comprises of JDBC, ORM, OXM, JMS and Transaction modules. These modules basically provide support to interact with the database.
+
+Web
+This group comprises of Web, Web-Servlet, Web-Struts and Web-Portlet. These modules provide support to create web application.
+
+
+
+
+
+
+
+
+
+OXM:- Object XML Mapping
+ORM:- Object Relational Mapping
+JMS:- Java Mail Service 
