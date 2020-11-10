@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans  
+               http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+               
+	<bean id="helloBean" class="com.training.org.HelloWorld">
+		<property name="message" value="Hello DBS"></property>
+	</bean>
+	
+	   <bean id="cStartEventHandler" 
+         class="com.training.org.CStartEventHandler"/>
+
+   <bean id="cStopEventHandler" 
+         class="com.training.org.CStopEventHandler"/>
+	
+	
+</beans> 
