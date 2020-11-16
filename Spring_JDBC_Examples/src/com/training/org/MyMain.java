@@ -13,7 +13,7 @@ public class MyMain {
         System.out.println("--CREATE RECORD----");
         //studentJDBCTemplate.create(1, "Eshan", 23);
         
-        studentJDBCTemplate.update(2, 10);
+        studentJDBCTemplate.update(3, 10);
         
         List<Student> student=studentJDBCTemplate.listStudents();
         for (Student student2 : student) {
