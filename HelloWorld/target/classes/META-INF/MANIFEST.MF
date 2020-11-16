@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: user278
+Build-Jdk: 14.0.2
+Implementation-Title: HelloWorld
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.training.org
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-URL: http://projects.spring.io/spring-boot/HelloWorld/
+Created-By: Maven Integration for Eclipse
+

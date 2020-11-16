@@ -1,0 +1,25 @@
+1. Create MySQL database
+
+CREATE DATABASE crudapi
+2. Create table or Run the SQL script file
+
+CREATE TABLE tbl_employee
+(
+	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    	name VARCHAR(255),
+    	gender VARCHAR(255),
+    	department VARCHAR(255),
+    	dob DATE
+)
+
+3] 
+GET /api/employee
+
+
+POST /api/employee
+
+GET /api/employee/{id}
+
+PUT /api/employee
+
+DELETE /api/employee/{id}
